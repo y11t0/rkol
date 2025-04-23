@@ -6,6 +6,11 @@
 const char *ssid = "ssid";
 const char *password = "password";
 
+// Logo bilgileri
+const char *robotArmLogo = R"rawliteral(<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#cdd6f4"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5V12L2 17z"/></svg>)rawliteral";
+const int logoWidth = 60;
+const int logoHeight = 60;
+
 // Statik IP ayarlari
 IPAddress staticIP(192, 168, 1, 31); // Denenecek statik IP
 IPAddress gateway(192, 168, 1, 1);   // Gateway IP
@@ -227,9 +232,15 @@ const char *html = R"rawliteral(
 </head>
 <body>
     <div class="header">
-        <div class="logo">SOL LOGO</div>
+        <div class="logo">
+            <img src="data:image/svg+xml;utf8,)rawliteral" +
+                   String(robotArmLogo) + R"rawliteral(" alt="Robot Arm" style="width: )rawliteral" + String(logoWidth) + R"rawliteral(px; height: )rawliteral" + String(logoHeight) + R"rawliteral(px;">
+        </div>
         <h1 class="title">Robot Kol Kontrol</h1>
-        <div class="logo">SAG LOGO</div>
+        <div class="logo">
+            <img src="data:image/svg+xml;utf8,)rawliteral" +
+                   String(robotArmLogo) + R"rawliteral(" alt="Robot Arm" style="width: )rawliteral" + String(logoWidth) + R"rawliteral(px; height: )rawliteral" + String(logoHeight) + R"rawliteral(px;">
+        </div>
     </div>
 
     <div class="control-panel">
