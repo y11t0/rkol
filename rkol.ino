@@ -7,7 +7,7 @@ const char *ssid = "ssid";
 const char *password = "password";
 
 // Logo bilgileri
-const char *robotArmLogo = R"rawliteral(<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#cdd6f4"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5V12L2 17z"/></svg>)rawliteral";
+const char robotArmLogo[] = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='#cdd6f4'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5V12L2 17z'/></svg>";
 const int logoWidth = 60;
 const int logoHeight = 60;
 
@@ -233,13 +233,11 @@ const char *html = R"rawliteral(
 <body>
     <div class="header">
         <div class="logo">
-            <img src="data:image/svg+xml;utf8,)rawliteral" +
-                   String(robotArmLogo) + R"rawliteral(" alt="Robot Arm" style="width: )rawliteral" + String(logoWidth) + R"rawliteral(px; height: )rawliteral" + String(logoHeight) + R"rawliteral(px;">
+            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='#cdd6f4'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5V12L2 17z'/></svg>" alt="Robot Arm" style="width: 60px; height: 60px;">
         </div>
         <h1 class="title">Robot Kol Kontrol</h1>
         <div class="logo">
-            <img src="data:image/svg+xml;utf8,)rawliteral" +
-                   String(robotArmLogo) + R"rawliteral(" alt="Robot Arm" style="width: )rawliteral" + String(logoWidth) + R"rawliteral(px; height: )rawliteral" + String(logoHeight) + R"rawliteral(px;">
+            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='#cdd6f4'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5V12L2 17z'/></svg>" alt="Robot Arm" style="width: 60px; height: 60px;">
         </div>
     </div>
 
@@ -350,6 +348,25 @@ void smoothMove(Servo &servo, int &currentPos, int targetPos, unsigned long &las
     lastMoveTime = millis();
 }
 
+// Tüm servoları başlangıç pozisyonlarına getir
+void resetAllServos()
+{
+    currentPos1 = 90;
+    currentPos2 = 90;
+    currentPos3 = 90;
+    currentPos4 = 20;
+
+    targetPos1 = 90;
+    targetPos2 = 90;
+    targetPos3 = 90;
+    targetPos4 = 20;
+
+    servo1.write(currentPos1);
+    servo2.write(currentPos2);
+    servo3.write(currentPos3);
+    servo4.write(currentPos4);
+}
+
 void setup()
 {
     Serial.begin(9600);
@@ -443,23 +460,4 @@ void loop()
     smoothMove(servo2, currentPos2, targetPos2, lastMoveTime2);
     smoothMove(servo3, currentPos3, targetPos3, lastMoveTime3);
     smoothMove(servo4, currentPos4, targetPos4, lastMoveTime4);
-}
-
-// Tüm servoları başlangıç pozisyonlarına getir
-void resetAllServos()
-{
-    currentPos1 = 90;
-    currentPos2 = 90;
-    currentPos3 = 90;
-    currentPos4 = 20;
-
-    targetPos1 = 90;
-    targetPos2 = 90;
-    targetPos3 = 90;
-    targetPos4 = 20;
-
-    servo1.write(currentPos1);
-    servo2.write(currentPos2);
-    servo3.write(currentPos3);
-    servo4.write(currentPos4);
 }
